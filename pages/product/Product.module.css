@@ -1,0 +1,95 @@
+.container {
+  height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.left {
+  flex: 1;
+}
+
+.right {
+  flex: 1;
+}
+
+.imgContainer {
+  width: 80%;
+  height: 80%;
+  /* max-width: 600px;
+  max-height: 600px; */
+  position: relative;
+}
+
+.price {
+  color: #ee8043;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-bottom: 3px solid #ee8043;
+}
+
+.sizes {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.size {
+  margin-right: 1rem;
+}
+
+.size button {
+  border: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.quantity {
+  width: 50px;
+  height: 30px;
+}
+
+.add label {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.addToCartBtn {
+  margin-left: 1rem;
+  height: 30px;
+  padding: 0 1rem;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 100px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #ee8043;
+  color: #fff;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+  }
+
+  .imgContainer {
+    width: 70vw;
+    height: 70vw;
+  }
+
+  .right {
+    margin: 0 3rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .right {
+    margin: 0;
+  }
+}
