@@ -36,6 +36,7 @@ const Featured = () => {
                 alt="sushi featured"
                 layout="fill"
                 objectFit="cover"
+                priority='true'
               />
             </div>
           );

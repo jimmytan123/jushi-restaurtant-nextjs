@@ -2,18 +2,22 @@ import React from 'react';
 import ProductCard from './ProductCard';
 import classes from './ProductList.module.css';
 
-const ProductList = () => {
+const ProductList = ({ products }) => {
   return (
     <div className={classes['product-list']}>
       <div className={classes.wrapper}>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {products.map((product) => {
+          return (
+            <ProductCard
+              key={product._id}
+              id={product._id}
+              name={product.name}
+              image={product.image}
+              description={product.description}
+              price={product.price}
+            />
+          );
+        })}
       </div>
     </div>
   );
