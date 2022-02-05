@@ -21,10 +21,12 @@ const Cart = () => {
   const onSubmitOrder = async (userData) => {
     setShowForm(false);
 
-    try {
-      const dev = process.env.NODE_ENV !== 'production';
-      const server = dev ? 'http://localhost:3000' : '';
+    const dev = process.env.NODE_ENV !== 'production';
+    const server = dev
+      ? 'http://localhost:3000'
+      : 'https://jushi-restaurant-nextjs.vercel.app';
 
+    try {
       const response = await axios.post(`${server}/api/orders`, {
         orderedItems: cartItems,
         userInfo: userData,

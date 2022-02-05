@@ -2,8 +2,9 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Featured from '../components/Featured';
 import ProductList from '../components/ProductList';
-import axios from 'axios';
+// import axios from 'axios';
 import { motion } from 'framer-motion';
+import { MongoClient } from 'mongodb';
 
 const Home = ({ products }) => {
   // console.log(products);
@@ -30,14 +31,34 @@ const Home = ({ products }) => {
 };
 
 export const getStaticProps = async () => {
-  const dev = process.env.NODE_ENV !== 'production';
-  const server = dev ? 'http://localhost:3000' : '';
+  // const res = await axios.get('http://localhost:3000/api/products');
+  // // console.log(res.data);
+  // return {
+  //   props: {
+  //     products: res.data,
+  //   },
+  //   revalidate: 10,
+  // };
 
-  const res = await axios.get(`${server}/api/products`);
-  // console.log(res.data);
+  const client = await MongoClient.connect(process.env.MONGO_URL);
+  const db = client.db();
+  const productsCollection = db.collection('products');
+  const result = productsCollection.find();
+  const products = await result.toArray();
+
+  await client.close();
+
   return {
     props: {
-      products: res.data,
+      products: products.map((product) => {
+        return {
+          name: product.name,
+          description: product.description,
+          image: product.image,
+          _id: product._id.toString(),
+          price: product.price,
+        };
+      }),
     },
     revalidate: 10,
   };

@@ -99,10 +99,12 @@ const Product = ({ productData }) => {
 };
 
 export async function getServerSideProps(context) {
-  const dev = process.env.NODE_ENV !== 'production';
-  const server = dev ? 'http://localhost:3000' : '';
-
   const productId = context.params.productId;
+
+  const dev = process.env.NODE_ENV !== 'production';
+  const server = dev
+    ? 'http://localhost:3000'
+    : 'https://jushi-restaurant-nextjs.vercel.app';
 
   const res = await axios.get(`${server}/api/products/${productId}`);
   // console.log(res.data);

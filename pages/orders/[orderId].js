@@ -155,10 +155,12 @@ const Order = ({ orderData }) => {
 export default Order;
 
 export const getServerSideProps = async (context) => {
-  const dev = process.env.NODE_ENV !== 'production';
-  const server = dev ? 'http://localhost:3000' : '';
-
   const orderId = context.params.orderId;
+
+  const dev = process.env.NODE_ENV !== 'production';
+  const server = dev
+    ? 'http://localhost:3000'
+    : 'https://jushi-restaurant-nextjs.vercel.app';
 
   const res = await axios.get(`${server}/api/orders/${orderId}`);
   return {
