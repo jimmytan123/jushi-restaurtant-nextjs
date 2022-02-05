@@ -23,9 +23,7 @@ const Cart = () => {
 
     try {
       const dev = process.env.NODE_ENV !== 'production';
-      const server = dev
-        ? 'http://localhost:3000'
-        : 'jushi-restaurant-nextjs-8b9sa4zme-jimmytan123.vercel.app';
+      const server = dev ? 'http://localhost:3000' : '';
 
       const response = await axios.post(`${server}/api/orders`, {
         orderedItems: cartItems,

@@ -31,9 +31,7 @@ const Home = ({ products }) => {
 
 export const getStaticProps = async () => {
   const dev = process.env.NODE_ENV !== 'production';
-  const server = dev
-    ? 'http://localhost:3000'
-    : 'jushi-restaurant-nextjs-8b9sa4zme-jimmytan123.vercel.app';
+  const server = dev ? 'http://localhost:3000' : '';
 
   const res = await axios.get(`${server}/api/products`);
   // console.log(res.data);
