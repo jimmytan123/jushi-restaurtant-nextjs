@@ -7,6 +7,9 @@ import { cartActions } from '../../store/cart-slice';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 
+// for SSG
+import { MongoClient, ObjectId } from 'mongodb';
+
 const Product = ({ productData }) => {
   const [amountIsValid, setAmountIsValid] = useState(true);
 
@@ -98,21 +101,66 @@ const Product = ({ productData }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const productId = context.params.productId;
+// Server-side rendering
+// export async function getServerSideProps(context) {
+//   const productId = context.params.productId;
 
-  const dev = process.env.NODE_ENV !== 'production';
-  const server = dev
-    ? 'http://localhost:3000'
-    : 'https://jushi-restaurant-nextjs.vercel.app';
+//   const dev = process.env.NODE_ENV !== 'production';
+//   const server = dev
+//     ? 'http://localhost:3000'
+//     : 'https://jushi-restaurant-nextjs.vercel.app';
 
-  const res = await axios.get(`${server}/api/products/${productId}`);
-  // console.log(res.data);
+//   const res = await axios.get(`${server}/api/products/${productId}`);
+//   // console.log(res.data);
+//   return {
+//     props: {
+//       productData: res.data,
+//     },
+//   };
+// }
+
+// Static-site generation
+export async function getStaticPaths() {
+  const client = await MongoClient.connect(process.env.MONGO_URL);
+  const db = client.db();
+  const productsCollection = db.collection('products');
+
+  const products = await productsCollection.find({}, { _id: 1 }).toArray();
+
+  client.close();
+
   return {
-    props: {
-      productData: res.data,
-    },
+    fallback: 'blocking',
+    // paths key determines which paths will be pre-rendered
+    paths: products.map((product) => ({
+      params: { productId: product._id.toString() },
+    })),
   };
 }
+
+export const getStaticProps = async (context) => {
+  const productId = context.params.productId;
+
+  const client = await MongoClient.connect(process.env.MONGO_URL);
+  const db = client.db();
+  const productsCollection = db.collection('products');
+  // find object by id
+  const selectedProduct = await productsCollection.findOne({
+    _id: ObjectId(productId), // convert productId into ObjectId object -- same as the id form in the MongoDB, so it can search
+  });
+  client.close();
+
+  return {
+    props: {
+      productData: {
+        _id: selectedProduct._id.toString(),
+        name: selectedProduct.name,
+        description: selectedProduct.description,
+        image: selectedProduct.image,
+        price: selectedProduct.price,
+      }, // will pass it the props
+    },
+  };
+};
 
 export default Product;

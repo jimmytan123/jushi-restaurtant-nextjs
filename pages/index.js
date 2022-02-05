@@ -4,6 +4,8 @@ import Featured from '../components/Featured';
 import ProductList from '../components/ProductList';
 // import axios from 'axios';
 import { motion } from 'framer-motion';
+
+// for SSG
 import { MongoClient } from 'mongodb';
 
 const Home = ({ products }) => {
@@ -30,6 +32,7 @@ const Home = ({ products }) => {
   );
 };
 
+// Static-site generation
 export const getStaticProps = async () => {
   // const res = await axios.get('http://localhost:3000/api/products');
   // // console.log(res.data);
@@ -52,15 +55,15 @@ export const getStaticProps = async () => {
     props: {
       products: products.map((product) => {
         return {
+          _id: product._id.toString(),
           name: product.name,
           description: product.description,
           image: product.image,
-          _id: product._id.toString(),
           price: product.price,
         };
       }),
     },
-    revalidate: 10,
+    revalidate: 100,
   };
 };
 
