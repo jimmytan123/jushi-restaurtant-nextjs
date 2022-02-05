@@ -92,6 +92,16 @@
   color: #ee8043;
 }
 
+.sending {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #ee8043;
+}
+
 @media screen and (max-width: 800px) {
   .container {
     flex-direction: column;

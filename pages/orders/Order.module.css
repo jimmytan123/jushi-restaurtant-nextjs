@@ -110,9 +110,11 @@
 
 .button:first-of-type {
   cursor: not-allowed;
+  background-color: #ff4d6d;
+  color: #fff;
 }
 
-.button:hover {
+.button:last-of-type:hover {
   background-color: #ee8043;
   color: #fff;
 }
