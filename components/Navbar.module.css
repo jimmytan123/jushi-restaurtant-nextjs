@@ -63,6 +63,11 @@
 .list li {
   font-weight: 600;
   margin: 0 0.8rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.list li:first-child:hover {
+  color: #ee8043;
 }
 
 .cart {

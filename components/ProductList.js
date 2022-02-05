@@ -4,7 +4,7 @@ import classes from './ProductList.module.css';
 
 const ProductList = ({ products }) => {
   return (
-    <div className={classes['product-list']}>
+    <div id="menu" className={classes['product-list']}>
       <div className={classes.wrapper}>
         {products.map((product) => {
           return (

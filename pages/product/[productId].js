@@ -4,6 +4,8 @@ import classes from './Product.module.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart-slice';
+import Head from 'next/head';
+import { motion } from 'framer-motion';
 
 const Product = ({ productData }) => {
   const [amountIsValid, setAmountIsValid] = useState(true);
@@ -42,51 +44,69 @@ const Product = ({ productData }) => {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.left}>
-        <div className={classes.imgContainer}>
-          <Image
-            src={productData.image}
-            layout="fill"
-            alt="sushi"
-            objectFit="cover"
-          />
+    <>
+      <Head>
+        <title>Food Info - {productData.name}</title>
+        <meta name="description" content="Food order app by Jimmy Tan" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <motion.div
+        className={classes.container}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ ease: 'easeInOut', duration: 0.3 }}
+      >
+        <div className={classes.left}>
+          <div className={classes.imgContainer}>
+            <Image
+              src={productData.image}
+              layout="fill"
+              alt="sushi"
+              objectFit="cover"
+            />
+          </div>
         </div>
-      </div>
-      <div className={classes.right}>
-        <h1 className={classes.title}>{productData.name}</h1>
-        <span className={classes.price}>${productData.price}</span>
-        <p className={classes.description}>{productData.description}</p>
-        <form className={classes.add}>
-          <label htmlFor="quantity">Amount</label>
-          <input
-            type="number"
-            defaultValue="1"
-            min="1"
-            max="5"
-            step="1"
-            className={classes.quantity}
-            id="quantity"
-            ref={amountInputRef}
-          />
-          <button onClick={handleAddCartItem} className={classes.addToCartBtn}>
-            Add to Cart
-          </button>
-        </form>
-        {!amountIsValid && (
-          <p className={classes.error}>Please enter a valid amount (1 - 5)</p>
-        )}
-      </div>
-    </div>
+        <div className={classes.right}>
+          <h1 className={classes.title}>{productData.name}</h1>
+          <span className={classes.price}>${productData.price}</span>
+          <p className={classes.description}>{productData.description}</p>
+          <form className={classes.add}>
+            <label htmlFor="quantity">Amount</label>
+            <input
+              type="number"
+              defaultValue="1"
+              min="1"
+              max="5"
+              step="1"
+              className={classes.quantity}
+              id="quantity"
+              ref={amountInputRef}
+            />
+            <button
+              onClick={handleAddCartItem}
+              className={classes.addToCartBtn}
+            >
+              Add to Cart
+            </button>
+          </form>
+          {!amountIsValid && (
+            <p className={classes.error}>Please enter a valid amount (1 - 5)</p>
+          )}
+        </div>
+      </motion.div>
+    </>
   );
 };
 
 export async function getServerSideProps(context) {
+  const dev = process.env.NODE_ENV !== 'production';
+  const server = dev
+    ? 'http://localhost:3000'
+    : 'https://jushi-nextjs-jimmy-tan.com';
+
   const productId = context.params.productId;
 
-  const res = await axios.get(
-    `http://localhost:3000/api/products/${productId}`
-  );
+  const res = await axios.get(`${server}/api/products/${productId}`);
   // console.log(res.data);
   return {
     props: {

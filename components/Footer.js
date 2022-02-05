@@ -4,7 +4,7 @@ import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
 
 const Footer = () => {
   return (
-    <footer className={classes.footer}>
+    <footer id="contact" className={classes.footer}>
       <div className={classes.wrapper}>
         <div className={classes['footer-item']}>
           <Image
@@ -17,8 +17,8 @@ const Footer = () => {
         </div>
         <div className={classes['footer-item']}>
           <h2>Jushi Japanese Restaurant</h2>
-          <p>555 Seymour St, Vancouver, BC V6B 3H6</p>
-          <p>Tel: (604)-555-5555</p>
+          <p>555 Fake St, Vancouver, BC V1J 3H6</p>
+          <p>Tel: (778)-555-5555</p>
           <p>Email: fake@jushi.com</p>
           <div className={classes.icons}>
             <div>
@@ -41,7 +41,12 @@ const Footer = () => {
           <p>11:00 am to 3:00 pm</p>
           <p>5:00 pm to 10:00 pm</p>
         </div>
-        <div>&copy; 2022 Jimmy(Zhixi) Tan</div>
+        <div>
+          &copy; 2022{' '}
+          <a href="https://ztan.ca" target="_blank" rel="noreferrer noopener">
+            Jimmy(Zhixi) Tan
+          </a>
+        </div>
       </div>
     </footer>
   );

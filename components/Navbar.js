@@ -52,8 +52,12 @@ const Navbar = () => {
           <li>
             <Link href="/">Home</Link>
           </li>
-          <li>Menu</li>
-          <li>Events</li>
+          <li>
+            <Link href="#menu">Menu</Link>
+          </li>
+          <li>
+            <Link href="#contact">Contact</Link>
+          </li>
         </ul>
       </div>
       <div>
