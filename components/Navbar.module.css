@@ -24,7 +24,7 @@
 
 .top-bar {
   width: 100%;
-  
+
   display: flex;
   justify-content: flex-end;
 }
@@ -70,6 +70,7 @@
   justify-content: flex-end;
   position: relative;
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 .cart svg {
@@ -83,11 +84,35 @@
   color: #fff;
   border-radius: 50%;
   top: -10px;
-  right: -5px;
-  height: 25px;
-  width: 25px;
-  text-align: center;
+  right: -8px;
+  height: 28px;
+  width: 28px;
   font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.attention {
+  animation: attention 0.3s ease-in-out;
+}
+
+@keyframes attention {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media screen and (max-width: 768px) {

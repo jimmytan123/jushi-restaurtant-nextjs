@@ -1,6 +1,7 @@
 .container {
   padding: 3rem;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .left {
@@ -54,7 +55,8 @@
   margin: 0.3rem 0;
 }
 
-.button {
+.button,
+.reset {
   border: none;
   min-height: 30px;
   padding: 0.5rem 0;
@@ -67,9 +69,27 @@
   transition: all 0.3s ease-in-out;
 }
 
-.button:hover {
+.button:hover,
+.reset:hover {
   background-color: #ee8043;
   color: #fff;
+}
+
+.reset {
+  color: #343a40;
+}
+
+.empty {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty p {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #ee8043;
 }
 
 @media screen and (max-width: 800px) {
@@ -81,6 +101,7 @@
 
   .wrapper {
     width: 100%;
+    min-width: 300px;
     margin-top: 1rem;
   }
 }

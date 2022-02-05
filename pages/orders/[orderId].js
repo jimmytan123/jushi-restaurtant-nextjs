@@ -1,8 +1,12 @@
 import React from 'react';
 import classes from './Order.module.css';
 import Image from 'next/image';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const Order = () => {
+const Order = ({ orderData }) => {
+  const router = useRouter();
+
   const status = 0;
 
   // conditional class name
@@ -17,6 +21,7 @@ const Order = () => {
   };
   return (
     <div className={classes.container}>
+      <h1>Your Order Has Been Placed!</h1>
       <div className={classes.left}>
         <div className={classes.row}>
           <table className={classes.table}>
@@ -31,16 +36,24 @@ const Order = () => {
             <tbody>
               <tr className={classes.tr}>
                 <td>
-                  <span className={classes.id}>78785787878</span>
+                  <span className={classes.id}>{`#${orderData._id.slice(
+                    -4
+                  )}`}</span>
                 </td>
                 <td>
-                  <span className={classes.name}>John Doe</span>
+                  <span className={classes.name}>
+                    {orderData.userInfo.name}
+                  </span>
                 </td>
                 <td>
-                  <span className={classes.address}>666 Main St</span>
+                  <span className={classes.address}>
+                    {orderData.userInfo.street}
+                  </span>
                 </td>
                 <td>
-                  <span className={classes.total}>$19.90</span>
+                  <span
+                    className={classes.total}
+                  >{`$${orderData.orderedAmount.toFixed(2)}`}</span>
                 </td>
               </tr>
             </tbody>
@@ -108,18 +121,15 @@ const Order = () => {
       </div>
       <div className={classes.right}>
         <div className={classes.wrapper}>
-          <h2>Cart Total</h2>
+          <h2>Order Infomation</h2>
           <div>
-            <span>Subtotal:</span> $19.90
-          </div>
-          <div>
-            <span>Discount:</span> $0.00
-          </div>
-          <div>
-            <span>Order Total:</span> $19.90
+            <span>Order Total:</span> {`$${orderData.orderedAmount.toFixed(2)}`}
           </div>
           <button className={classes.button} disabled>
             PAID
+          </button>
+          <button onClick={() => router.push('/')} className={classes.button}>
+            BACK TO HOME
           </button>
         </div>
       </div>
@@ -128,3 +138,14 @@ const Order = () => {
 };
 
 export default Order;
+
+export const getServerSideProps = async (context) => {
+  const orderId = context.params.orderId;
+
+  const res = await axios.get(`http://localhost:3000/api/orders/${orderId}`);
+  return {
+    props: {
+      orderData: res.data,
+    },
+  };
+};

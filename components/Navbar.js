@@ -3,8 +3,26 @@ import Image from 'next/image';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Navbar = () => {
+  const [cartIconAttention, setCartIconAttention] = useState(false);
+  const cartTotalQuantity = useSelector((state) => state.cart.totalQuantity);
+
+  useEffect(() => {
+    setCartIconAttention(true);
+
+    const timer = setTimeout(() => {
+      setCartIconAttention(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [cartTotalQuantity]);
+
   return (
     <header className={classes.navbar}>
       <div className={classes['top-bar']}>
@@ -40,8 +58,18 @@ const Navbar = () => {
       </div>
       <div>
         <div className={classes.cart}>
-          <MdOutlineShoppingCart />
-          <span className={classes.counter}>2</span>
+          <Link href="/cart" passHref>
+            <div>
+              <MdOutlineShoppingCart />
+              <span
+                className={`${classes.counter}  ${
+                  cartIconAttention ? classes.attention : ''
+                }`}
+              >
+                {cartTotalQuantity}
+              </span>
+            </div>
+          </Link>
         </div>
       </div>
     </header>

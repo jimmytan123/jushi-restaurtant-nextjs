@@ -9,6 +9,8 @@
 
 .left {
   flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .right {
@@ -69,6 +71,11 @@
   cursor: pointer;
   background-color: #ee8043;
   color: #fff;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 1000px) {

@@ -1,0 +1,58 @@
+.form {
+  width: 100%;
+  margin: 1rem auto;
+  margin-top: 2rem;
+  background-color: #f7ede2;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.form h2 {
+    text-align: center;
+}
+
+.input-group,
+.action {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.input-group label {
+  margin: 1rem 0 0.5rem 0;
+  font-weight: bold;
+}
+
+.input-group input {
+  padding: 0.3rem;
+  max-width: 100%;
+}
+
+.input-group input:focus {
+  border-color: #ee8043;
+}
+
+.action button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  padding: 0.5rem 2rem;
+  display: block;
+  margin-top: 1rem;
+  margin-left: auto;
+  background-color: #ee8043;
+  font-weight: bold;
+  color: #fff;
+  transition: all 0.3s ease-out;
+}
+
+.action button:hover {
+  transform: translateY(-3px);
+}
+
+.error-msg {
+  color: red;
+  font-weight: bold;
+}
