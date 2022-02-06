@@ -5,9 +5,26 @@
 }
 
 .wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1rem;
+}
+
+@media screen and (max-width: 870px) {
+  .wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

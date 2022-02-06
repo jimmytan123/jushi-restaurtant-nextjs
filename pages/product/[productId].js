@@ -160,7 +160,7 @@ export const getStaticProps = async (context) => {
         price: selectedProduct.price,
       }, // will pass it the props
     },
-    revalidate: 100,
+    revalidate: 600,
   };
 };
 

@@ -4,12 +4,46 @@ import Featured from '../components/Featured';
 import ProductList from '../components/ProductList';
 // import axios from 'axios';
 import { motion } from 'framer-motion';
+import ProductFilter from '../components/ProductFilter';
 
 // for SSG
 import { MongoClient } from 'mongodb';
+import { useState } from 'react';
 
 const Home = ({ products }) => {
   // console.log(products);
+
+  const [productList, setProductLists] = useState(products);
+
+  const handleChangeFilter = (category) => {
+    if (category === 'popular') {
+      setProductLists(
+        products.filter((product) => product.category.includes('popular'))
+      );
+    } else if (category === 'starters') {
+      setProductLists(
+        products.filter((product) => product.category.includes('starters'))
+      );
+    } else if (category === 'maki') {
+      setProductLists(
+        products.filter((product) => product.category.includes('maki'))
+      );
+    } else if (category === 'nigiri') {
+      setProductLists(
+        products.filter((product) => product.category.includes('nigiri'))
+      );
+    } else if (category === 'noodles') {
+      setProductLists(
+        products.filter((product) => product.category.includes('noodles'))
+      );
+    } else if (category === 'drinks') {
+      setProductLists(
+        products.filter((product) => product.category.includes('drinks'))
+      );
+    } else if (category === 'all') {
+      setProductLists(products);
+    }
+  };
   return (
     <motion.div
       className={styles.container}
@@ -27,7 +61,8 @@ const Home = ({ products }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Featured />
-      <ProductList products={products} />
+      <ProductFilter onCategoryChange={handleChangeFilter} />
+      <ProductList products={productList} />
     </motion.div>
   );
 };
@@ -60,10 +95,11 @@ export const getStaticProps = async () => {
           description: product.description,
           image: product.image,
           price: product.price,
+          category: product.category,
         };
       }),
     },
-    revalidate: 100,
+    revalidate: 600,
   };
 };
 
