@@ -42,5 +42,7 @@
 
   .intro {
     padding: 1.5rem;
+    max-width: 90%;
+    margin-bottom: 2rem;
   }
 }
