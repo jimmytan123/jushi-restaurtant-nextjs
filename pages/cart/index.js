@@ -158,7 +158,9 @@ const Cart = () => {
                 )}
               </div>
             </div>
-            {showForm && <CheckoutForm onSubmitOrder={onSubmitOrder} />}
+            {showForm && cartItems.length !== 0 && (
+              <CheckoutForm onSubmitOrder={onSubmitOrder} />
+            )}
           </>
         )}
         {isSubmitting && (
