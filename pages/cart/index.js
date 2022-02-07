@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
+import { AiFillDelete } from 'react-icons/ai';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,11 @@ const Cart = () => {
     }
   };
 
+  const handleCartItemRemove = (itemId) => {
+    //console.log(itemId);
+    dispatch(cartActions.removeItemFromCart(itemId));
+  };
+
   return (
     <>
       <Head>
@@ -87,6 +93,14 @@ const Cart = () => {
                           <td>
                             <span className={classes.name}>
                               {cartItem.name}
+                              <button
+                                className={classes.remove}
+                                onClick={() =>
+                                  handleCartItemRemove(cartItem.id)
+                                }
+                              >
+                                <AiFillDelete />
+                              </button>
                             </span>
                           </td>
                           <td>
