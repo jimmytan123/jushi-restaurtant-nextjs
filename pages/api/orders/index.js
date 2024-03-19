@@ -20,8 +20,6 @@ async function handler(req, res) {
       // insert the data object
       const order = await ordersCollection.insertOne(data);
 
-      //console.log(order);
-
       // close the database
       client.close();
 
